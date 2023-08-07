@@ -16,4 +16,6 @@ types-pyYAML
 scipy
 flask
 flask-Cors
--e .
+catboost
+xgboost
+#-e .
