@@ -9,7 +9,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 __version__ = "0.0.1"
 
 REPO_NAME = "MLOps-Project"
-AUTHOR_USERNAME = "Stanlito-AI"
+AUTHOR_USERNAME = "Chidera Stanley"
 SRC_REPO = "mlops-project"
 AUTHOR_EMAIL = "mosesstanley99@gmail.com"
 
