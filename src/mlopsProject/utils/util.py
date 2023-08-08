@@ -1,1 +1,1 @@
-import mlops-project as mlops
+import mlopsProject
