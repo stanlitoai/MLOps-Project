@@ -18,4 +18,5 @@ flask
 flask-Cors
 catboost
 xgboost
+dill
 #-e .

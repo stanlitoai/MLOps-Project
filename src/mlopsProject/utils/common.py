@@ -6,6 +6,7 @@ import yaml
 from mlopsProject import logger
 import json
 import joblib
+import dill
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
@@ -137,3 +138,15 @@ def decodeImage(imgstring, fileName):
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath, "rb") as f:
         return base64.b64encode(f.read())
+
+
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path,exist_ok=True)
+        with open(file_path, "wb") as f:
+            dill.dump(obj, f)
+
+        logger.info(f"object saved at: {file_path}")
+    except Exception as e:
+        raise e
