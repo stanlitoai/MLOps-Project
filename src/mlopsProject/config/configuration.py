@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import sys
 import pandas as pd
+import numpy as np
 from mlopsProject.utils.common import read_yaml, create_directories, save_object
 from mlopsProject.entity.config_entity import DataIngestionConfig, DataTransformationConfig
 from mlopsProject import logger as Logger
@@ -55,7 +56,7 @@ class DataIngestion:
         try:
             # num_col = X.select_dtypes(exclude="object").columns
             # cat_col = X.select_dtypes(include="object").columns
-            num_col = ['writing_score', 'reading score']
+            num_col = ['writing score', 'reading score']
             cat_col = ['gender',
              'race/ethnicity', 
              'parental level of education', 
@@ -63,13 +64,13 @@ class DataIngestion:
 
             num_pipeline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy='median')),
-                ('scaler', StandardScaler())
+                ('scaler', StandardScaler(with_mean=False))
             ])
 
             cat_pipeline = Pipeline(steps=[
                 ('imputer', SimpleImputer(strategy='most_frequent')),
                 ('onehot', OneHotEncoder(handle_unknown='ignore')),
-                ('scaler', StandardScaler())
+                ('scaler', StandardScaler(with_mean=False))
             ])
 
             Logger.info(f"Category columns encoded successfully")
@@ -107,6 +108,7 @@ class DataIngestion:
 
             input_features_test_df = test.drop(target_col, axis=1)
             target_features_test_df = test[target_col]
+            Logger.info(f"Successfully processed {input_features_test_df}train and test data")
 
             Logger.info(f"Apply  processing  object  on  training data and test data")
 
@@ -134,11 +136,11 @@ class DataIngestion:
 
             return (
                 train_arr,
-                test_arr,
-                self.transformation_config.preprocessor,
+                test_arr
 
 
             )
+            Logger.info(">>>>>>>>>Completed<<<<<<<<<<<<<<<<<")
 
         except Exception as e:
             Logger.error(f">>>>>> stage failed <<<<<<<")
